@@ -1,0 +1,24 @@
+ {
+"compilerOptions": {
+"checkJs": true,
+"strict": false,
+"module": "esnext",
+"moduleResolution": "bundler",
+"paths": {
+// Config
+// Environment Manager
+"@environment-manager": ["./config/environment_manager.js"],
+
+// Functions
+// Common Functions
+"@commonFunctions": ["./functions/commonFunctions.js"],
+// API Functions and Methods
+"@apiRequests": ["./functions/api/apiRequests.js"],
+"@apiPayloads": ["./functions/api/apiPayloads.js"],
+// UI Functions and Methods
+"@uiMethods": ["./functions/ui/uiMethods.js"],
+"@uiFunctions": ["./functions/ui/uiFunctions.js"],
+}
+},
+"exclude": ["node_modules"]
+}
