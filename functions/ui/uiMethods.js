@@ -19,7 +19,7 @@ export class uiMethods {
     * Navigate to the Client Products Insure Menu Item
     * @param {string} Username - Name of the client as Username
     */
-    async ecoCommissionsLogin(Username) {
+    async ecoCommissionsLogin(Username = 'Jeff') {
 
         await this.page.goto(config.ui.ecoemissionsURL);
         await expect(this.page.getByText('Login Test')).toBeVisible();

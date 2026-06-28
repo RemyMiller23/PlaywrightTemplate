@@ -130,8 +130,9 @@ export default defineConfig({
     projects: [
         //UI Portion
         {
-            name: 'Eco Commissions UI',
+            name: 'eco-commissions-ui',
             testDir: './tests/ui',
+            // workers: 5,
             // Change snapshot location
             snapshotDir: './data/screenshots', // All snapshots go here
             expect: {
@@ -151,20 +152,24 @@ export default defineConfig({
             use: {
                 actionTimeout: 5000,
                 ignoreHTTPSErrors: true,
-                viewport: process.env.CI ? { width: 1920, height: 1080 } : null, // Dynamic viewport locally, fixed on CI
-                headless: false,
+                viewport: { width: 1920, height: 1080 },
+                headless: true,
                 launchOptions: {
                     slowMo: 250,
                     args: process.env.CI ? [] : ['--start-maximized', '--force-device-scale-factor=1'],
                 },
                 screenshot: 'only-on-failure',
-                video: 'on-first-retry',
+                video: {
+                    mode: 'retain-on-failure',
+                    // mode: 'on',
+                    // size: { width: 1920, height: 1080 },
+                },
                 permissions: ['camera'],
             },
         },
         // API Tests - No browser needed
         {
-            name: 'Eco Commissions Services API',
+            name: 'eco-commissions-services-api',
             testDir: './tests/api',
             use: {
                 ignoreHTTPSErrors: true,

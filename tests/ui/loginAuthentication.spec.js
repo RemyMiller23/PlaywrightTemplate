@@ -2,18 +2,27 @@
 import { test, expect } from '@playwright/test';
 import { commonFunctions } from '@commonFunctions';
 import { uiMethods } from '@uiMethods';
+import { uiFunctions } from '@uiFunctions';
 
 
-test.describe('Login Authentication Tests', () => {
+test.describe.parallel('Login Authentication Tests', () => {
     /** @type {uiMethods} */
     let uiMethods_;
-    let client_data
+    let uiFunctions_;
+    let client_data;
     test.beforeEach(async ({ page }, testInfo) => {
-        // Setups UI methods
+        // Setups UI methods & functions
         uiMethods_ = new uiMethods(page, testInfo);
+        uiFunctions_ = new uiFunctions(page, testInfo);
 
         client_data = await commonFunctions.getClientData('male')
         console.log(client_data)
+    });
+
+    test.afterEach(async ({ }, testInfo) => {
+        // Closes the page after each test
+        await uiFunctions_.tearDown();
+        console.log(`Test "${testInfo.title}" completed.`);
     });
 
     /**
@@ -28,7 +37,7 @@ test.describe('Login Authentication Tests', () => {
 
     /**
     * Login to EcoCommissions
-    * @owner Russell Miller
+    * @owner Remy Miller
     * @jira 5674
     * @company Caltex
     */
@@ -37,13 +46,16 @@ test.describe('Login Authentication Tests', () => {
 
     });
 
+    /**
+    * Login to EcoCommissions
+    * @owner Remy Miller
+    * @jira 5698
+    * @company BP
+    */
+    test('EcoCommissions - Login Default', { tag: ['@Negative'] }, async () => {
+        await uiMethods_.ecoCommissionsLogin();
 
-    test.afterEach(async ({ }, testInfo) => {
-        // Closes the page after each test
-        if (uiMethods_.page && !uiMethods_.page.isClosed()) {
-            await uiMethods_.page.close();
-        }
-        console.log(`Test "${testInfo.title}" completed.`);
     });
+
 
 });
