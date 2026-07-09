@@ -29,32 +29,36 @@ test.describe.parallel('Login Authentication Tests', () => {
     * Login to EcoCommissions
     * @owner Remy Miller
     * @jira 7366
-    * @company Astron Energy
+    * @company NetFlorist
     */
     test('EcoCommissions - Login Successful', { tag: ['@Positive'] }, async () => {
-        await uiMethods_.ecoCommissionsLogin(client_data.name);
+        await test.step('Step 1: Login with standard credentials', async() => {
+            await uiMethods_.ecoCommissionsLogin(client_data.name);
+        });
     });
 
     /**
     * Login to EcoCommissions
     * @owner Remy Miller
     * @jira 5674
-    * @company Caltex
+    * @company One Day Only
     */
     test('EcoCommissions - Login Unsuccessful', { tag: ['@Negative'] }, async () => {
-        await uiMethods_.ecoCommissionsLogin(client_data.idNumber);
-
+        await test.step('Step 1: Login with invalid credentials', async() => {
+            await uiMethods_.ecoCommissionsLogin(client_data.idNumber);
+        });
     });
 
     /**
     * Login to EcoCommissions
     * @owner Remy Miller
     * @jira 5698
-    * @company BP
+    * @company Mukuru
     */
     test('EcoCommissions - Login Default', { tag: ['@Negative'] }, async () => {
-        await uiMethods_.ecoCommissionsLogin();
-
+        await test.step('Step 1: Login with default credentials', async() => {
+            await uiMethods_.ecoCommissionsLogin();
+        });
     });
 
 

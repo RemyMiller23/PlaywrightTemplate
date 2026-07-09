@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-const BackendEndpoint = `https://dummyjson.com/`;
+const BackendEndpoint = `https://restful-booker.herokuapp.com`;
 const FrontendURL = `http://vbsca.ca/login/login.asp`;
 
 /**
@@ -15,14 +15,14 @@ const FrontendURL = `http://vbsca.ca/login/login.asp`;
 * @property {string} database.password - Database password
 * @property {string} database.name - Database name
 * @property {Object} ui - UI configuration object
-* @property {string} ui.ecoemissionsURL - EcoComissions application URL
+* @property {string} ui.URL - application URL
 * @property {Object} credentials - User credentials for different roles
 * @property {string} credentials.loginUsername - Username required to Login
 * @property {string} credentials.loginPassword - password required to Login
 */
 let config = {
     api: {
-        backendEndpoint: `${BackendEndpoint}api/url/service`,
+        backendEndpoint: `${BackendEndpoint}`,
     },
     database: {
         host: '',
@@ -32,11 +32,13 @@ let config = {
         name: '',
     },
     ui: {
-        ecoemissionsURL: FrontendURL,
+        URL: FrontendURL,
     },
     credentials: {
         loginUsername: '',
         loginPassword: '',
+        tokenUsername: '',
+        tokenPassword: '',
     },
 };
 
@@ -44,7 +46,7 @@ switch (process.env.ENV) {
     case 'dev':
         config = {
             api: {
-                backendEndpoint: `${BackendEndpoint}products`,
+                backendEndpoint: `${BackendEndpoint}`,
             },
             database: {
                 host: '',
@@ -54,18 +56,20 @@ switch (process.env.ENV) {
                 name: '',
             },
             ui: {
-                ecoemissionsURL: FrontendURL,
+                URL: FrontendURL,
             },
             credentials: {
                 loginUsername: process.env.LOGIN_USERNAME_DEV,
                 loginPassword: process.env.LOGIN_PASSWORD_DEV,
+                tokenUsername: process.env.TOKEN_USERNAME,
+                tokenPassword: process.env.TOKEN_PASSWORD,
             },
         };
         break;
     case 'qa':
         config = {
             api: {
-                backendEndpoint: `${BackendEndpoint}products`,
+                backendEndpoint: `${BackendEndpoint}`,
             },
             database: {
                 host: '',
@@ -75,18 +79,20 @@ switch (process.env.ENV) {
                 name: '',
             },
             ui: {
-                ecoemissionsURL: FrontendURL,
+                URL: FrontendURL,
             },
             credentials: {
                 loginUsername: process.env.LOGIN_USERNAME_QA,
                 loginPassword: process.env.LOGIN_PASSWORD_QA,
+                tokenUsername: process.env.TOKEN_USERNAME,
+                tokenPassword: process.env.TOKEN_PASSWORD,
             },
         };
         break;
     case 'uat':
         config = {
             api: {
-                backendEndpoint: `${BackendEndpoint}products`,
+                backendEndpoint: `${BackendEndpoint}`,
             },
             database: {
                 host: '',
@@ -96,11 +102,13 @@ switch (process.env.ENV) {
                 name: '',
             },
             ui: {
-                ecoemissionsURL: FrontendURL,
+                URL: FrontendURL,
             },
             credentials: {
                 loginUsername: process.env.LOGIN_USERNAME_UAT,
                 loginPassword: process.env.LOGIN_PASSWORD_UAT,
+                tokenUsername: process.env.TOKEN_USERNAME,
+                tokenPassword: process.env.TOKEN_PASSWORD,
             },
         };
         break;

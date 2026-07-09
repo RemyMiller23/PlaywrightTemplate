@@ -91,27 +91,69 @@ async function deleteCall(url, options = {}) {
 
 
 // API Groups
-export const productAPIs = {
+export const healthCheckAPIs = {
+    /**
+    * Post client identity fingerprint for foreign-national client
+    * @returns {Promise<import('@playwright/test').APIResponse>} - Playwright API Response
+    */
+    ping: async function () {
+        return await getCall(`${config.api.backendEndpoint}/ping`, {
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        });
+    },
+
+}
+
+export const authAPIs = {
     /**
     * Post client identity fingerprint for foreign-national client
     * @param {Object} payload Payload of the request
     * @returns {Promise<import('@playwright/test').APIResponse>} - Playwright API Response
     */
-    addNewProduct: async function (payload) {
-        return await postCall(`${config.api.backendEndpoint}/add`, {
+    getToken: async function (payload) {
+        return await postCall(`${config.api.backendEndpoint}/auth`, {
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            data: payload,
+        });
+    },
+
+}
+
+export const bookingAPIs = {
+
+    /**
+    * Gets authentication types for client
+    * @param {string} bookingId - Booking ID
+    * @returns {Promise<import('@playwright/test').APIResponse>} - Playwright API Response
+    */
+    getBookingById: async function (bookingId) {
+        return await getCall(`${config.api.backendEndpoint}/booking/${bookingId}`, {
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            params: null,
+        });
+    },
+
+    /**
+    * Post client identity fingerprint for foreign-national client
+    * @param {Object} payload Payload of the request
+    * @returns {Promise<import('@playwright/test').APIResponse>} - Playwright API Response
+    */
+    createBooking: async function (payload) {
+        return await postCall(`${config.api.backendEndpoint}/booking`, {
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
             data: payload,
         });
     },
 
     /**
-    * Gets authentication types for client
-    * @param {string} productId - Product ID
+    * Deletes authentication types for client
+    * @param {string} bookingId - Booking ID
+    * @param {string} token - Booking ID
     * @returns {Promise<import('@playwright/test').APIResponse>} - Playwright API Response
     */
-    getSingleProduct: async function (productId) {
-        return await getCall(`${config.api.backendEndpoint}/${productId}`, {
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    deleteBookingById: async function (bookingId, token) {
+        return await deleteCall(`${config.api.backendEndpoint}/booking/${bookingId}`, {
+            headers: { "Content-Type": "application/json", "Accept": "application/json", Cookie:`token=${token}`, },
             params: null,
         });
     },

@@ -21,7 +21,7 @@ export class uiMethods {
     */
     async ecoCommissionsLogin(Username = 'Jeff') {
 
-        await this.page.goto(config.ui.ecoemissionsURL);
+        await this.page.goto(config.ui.URL);
         await expect(this.page.getByText('Login Test')).toBeVisible();
         await expect(this.page.getByText('Username')).toBeVisible();
         await expect(this.page.getByText('Password')).toBeVisible();

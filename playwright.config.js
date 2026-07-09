@@ -15,9 +15,9 @@ dotenv.config()
 * @see https://playwright.dev/docs/test-configuration
 */
 
-process.env.ENV = 'dev';
+process.env.ENV = 'uat';
 const ENV = process.env.ENV;
-if (!ENV || ![`dev`, `int`, `qa`, `ppd`].includes(ENV)) {
+if (!ENV || ![`dev`, `int`, `uat`].includes(ENV)) {
     console.log(`Please provide a correct environment value like "dev/int/qa e.g ENV=dev npx playwright test <pathtotest>"`);
     process.exit();
 }
@@ -130,7 +130,7 @@ export default defineConfig({
     projects: [
         //UI Portion
         {
-            name: 'eco-commissions-ui',
+            name: 'application-ui',
             testDir: './tests/ui',
             // workers: 5,
             // Change snapshot location
@@ -152,24 +152,24 @@ export default defineConfig({
             use: {
                 actionTimeout: 5000,
                 ignoreHTTPSErrors: true,
-                viewport: { width: 1920, height: 1080 },
-                headless: true,
+                viewport: null,
+                headless: false,
                 launchOptions: {
                     slowMo: 250,
                     args: process.env.CI ? [] : ['--start-maximized', '--force-device-scale-factor=1'],
                 },
                 screenshot: 'only-on-failure',
                 video: {
-                    mode: 'retain-on-failure',
-                    // mode: 'on',
-                    // size: { width: 1920, height: 1080 },
+                    // mode: 'retain-on-failure',
+                    mode: 'on',
+                    size: { width: 1920, height: 1080 },
                 },
                 permissions: ['camera'],
             },
         },
         // API Tests - No browser needed
         {
-            name: 'eco-commissions-services-api',
+            name: 'application-services-api',
             testDir: './tests/api',
             use: {
                 ignoreHTTPSErrors: true,
